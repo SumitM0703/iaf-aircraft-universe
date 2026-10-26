@@ -1,0 +1,565 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Explore Indian Air Force aircraft, missions, history, air warriors and interactive aviation learning.">
+  <title>IAF Aircraft Universe</title>
+  <link rel="stylesheet" href="/src/style.css">
+
+  <style>
+    /* HERO CREST */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 460px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-crest {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-crest img {
+      width: min(68%, 280px);
+      height: auto;
+      max-height: 300px;
+      object-fit: contain;
+      animation: iafCrestSpin 14s linear infinite;
+      filter: drop-shadow(0 0 22px rgba(65, 165, 255, 0.28));
+      transform-style: preserve-3d;
+    }
+
+    .hero-visual-caption {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      z-index: 1;
+    }
+
+    @keyframes iafCrestSpin {
+      from { transform: rotateY(0deg); }
+      to   { transform: rotateY(360deg); }
+    }
+
+    @media (max-width: 700px) {
+      .hero-visual {
+        min-height: 320px;
+      }
+
+      .hero-crest img {
+        width: min(65%, 220px);
+        max-height: 220px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-crest img {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVIGATION -->
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="#home">IAF <span>UNIVERSE</span></a>
+
+      <button id="menuToggle" class="menu-toggle"
+        type="button" aria-label="Toggle navigation"
+        aria-expanded="false">☰</button>
+
+      <div class="nav-links" id="mainNav">
+        <a href="#home">Home</a>
+        <a href="#aircraft">Aircraft</a>
+        <a href="#aircraftLab">3D Lab</a>
+        <a href="#missions">Missions</a>
+        <a href="#warriors">Air Warriors</a>
+        <a href="#history">History</a>
+        <a href="#quiz">AI Quiz</a>
+      </div>
+    </nav>
+  </header>
+  
+
+  <main>
+    <!-- HERO -->
+    <section class="hero section" id="home">
+      <div class="hero-content">
+        <p class="eyebrow">
+          INDIAN AIR FORCE · EXPLORE · LEARN · EXPERIENCE
+        </p>
+
+        <h1>TOUCH THE SKY<br><span>WITH GLORY</span></h1>
+
+        <p class="hero-description">
+          Discover aircraft, missions, technology and the brave air
+          warriors who protect India's skies.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#aircraft" class="primary-btn">Explore Aircraft</a>
+
+          <button class="secondary-btn" id="heroAskAI" type="button">
+            Ask IAF AI ✦
+          </button>
+        </div>
+
+        <div class="hero-stats">
+          <div><strong>20+</strong><span>Aircraft profiles</span></div>
+          <div><strong>AI</strong><span>Learning assistant</span></div>
+          <div><strong>3D</strong><span>Aircraft lab</span></div>
+        </div>
+      </div>
+
+      <!-- OFFICIAL CREST -->
+      <div class="hero-visual">
+        <div class="hero-crest">
+          <img
+            src="/images/iaf-logo.svg"
+            alt="Indian Air Force crest"
+            onerror="this.style.display='none';"
+          >
+        </div>
+
+        <div class="hero-visual-caption">
+          <span class="status-dot"></span>
+          AVIATION KNOWLEDGE HUB
+        </div>
+      </div>
+    </section>
+
+    <!-- AIRCRAFT DIRECTORY -->
+    <section class="section" id="aircraft">
+      <div class="section-heading">
+        <p class="eyebrow">THE FLYING MACHINES</p>
+        <h2>Explore <span>Aircraft</span></h2>
+        <p class="section-intro">
+          Search aircraft profiles, compare roles and learn about
+          their systems and capabilities.
+        </p>
+      </div>
+
+      <div class="directory-tools">
+        <input id="aircraftSearch" class="search" type="search"
+          placeholder="Search aircraft, role, engine..."
+          aria-label="Search aircraft">
+
+        <span id="aircraftCount" class="count-pill">
+          Loading aircraft…
+        </span>
+      </div>
+
+      <div id="aircraftFilters" class="filters">
+        <button class="filter active" data-category="All">All</button>
+        <button class="filter" data-category="Fighter">Fighters</button>
+        <button class="filter" data-category="Transport">Transport</button>
+        <button class="filter" data-category="Helicopter">Helicopters</button>
+        <button class="filter" data-category="Trainer">Trainers</button>
+        <button class="filter" data-category="Special Mission">Special Mission</button>
+        <button class="filter" data-category="Historical">Historical</button>
+      </div>
+
+      <div class="aircraft-grid" id="aircraftGrid">
+        <p class="muted">Loading aircraft directory…</p>
+      </div>
+    </section>
+
+    <!-- 3D AIRCRAFT LAB -->
+    <section class="section aircraft-lab" id="aircraftLab">
+      <div class="section-heading">
+        <p class="eyebrow">INTERACTIVE 3D EXPERIENCE</p>
+        <h2>Aircraft <span>Disassembly Lab</span></h2>
+        <p class="section-intro">
+          Rotate, zoom and inspect components of the available 3D models.
+        </p>
+      </div>
+
+      <div class="lab-toolbar">
+        <label for="aircraft3dModel">SELECT AIRCRAFT</label>
+
+        <select id="aircraft3dModel">
+          <option value="rafale">Dassault Rafale</option>
+          <option value="tejas">HAL Tejas</option>
+          <option value="su30">Sukhoi Su-30MKI</option>
+        </select>
+      </div>
+
+      <div class="lab-layout">
+        <div class="viewer-shell">
+          <div class="viewer-topline">
+            <span>3D VIEWPORT</span>
+            <span id="viewerStatus">Preparing model…</span>
+          </div>
+
+          <div id="aircraft3dViewer">
+            <p class="viewer-loading">Loading 3D aircraft model…</p>
+          </div>
+
+          <div class="viewer-controls">
+            <button type="button" id="explode3dBtn" class="primary-btn">
+              Exploded View
+            </button>
+
+            <button type="button" id="reset3dBtn" class="secondary-btn">
+              Reset View
+            </button>
+
+            <button type="button" id="rotate3dBtn" class="secondary-btn">
+              Auto Rotate: Off
+            </button>
+          </div>
+
+          <p class="viewer-help">
+            Drag to rotate · Scroll to zoom · Click a component to inspect it
+          </p>
+        </div>
+
+        <aside class="part-panel">
+          <p class="eyebrow">COMPONENT EXPLORER</p>
+          <h3 id="partTitle">Select a component</h3>
+
+          <p id="partDescription">
+            Click a component in the 3D model or choose one from the list.
+          </p>
+
+          <div id="aircraftPartList" class="aircraft-part-list"></div>
+
+          <div class="part-fact">
+            <strong>AVIATION NOTE</strong>
+            <p id="partFact">
+              Explore the available aircraft components.
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <p class="lab-disclaimer">
+        Available component interactions depend on the structure
+        of each supplied GLB model.
+      </p>
+    </section>
+
+    <!-- MISSIONS -->
+    <section class="section" id="missions">
+      <div class="section-heading">
+        <p class="eyebrow">SERVICE TO THE NATION</p>
+        <h2>Air Force <span>Missions</span></h2>
+        <p class="section-intro">
+          Explore notable operations, humanitarian assistance
+          and the role of aviation in national service.
+        </p>
+      </div>
+
+      <div id="missionGrid" class="content-grid"></div>
+    </section>
+
+    <!-- AIR WARRIORS -->
+    <section class="section" id="warriors">
+      <div class="section-heading">
+        <p class="eyebrow">COURAGE AND COMMITMENT</p>
+        <h2>Our Air <span>Warriors</span></h2>
+        <p class="section-intro">
+          Learn about notable IAF leaders and decorated personnel.
+        </p>
+      </div>
+
+      <div class="directory-tools">
+        <input id="peopleSearch" class="search" type="search"
+          placeholder="Search air warriors..."
+          aria-label="Search air warriors">
+      </div>
+
+      <div id="peopleGrid" class="content-grid people-grid"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="section" id="history">
+      <div class="section-heading">
+        <p class="eyebrow">A LEGACY OF SERVICE</p>
+        <h2>History <span>of the IAF</span></h2>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <span>1932</span>
+          <div>
+            <h3>Foundation</h3>
+            <p>
+              The Indian Air Force was established on 8 October 1932.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <span>1947</span>
+          <div>
+            <h3>Independence</h3>
+            <p>
+              The IAF continued its role in India's defence
+              and air transport following independence.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <span>1965</span>
+          <div>
+            <h3>Air Operations</h3>
+            <p>
+              The IAF conducted operations during the 1965 war.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <span>1971</span>
+          <div>
+            <h3>War of 1971</h3>
+            <p>
+              IAF air operations supported the military campaign
+              during the 1971 war.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <span>1999</span>
+          <div>
+            <h3>Operation Safed Sagar</h3>
+            <p>
+              The IAF carried out air operations during the Kargil
+              conflict in challenging high-altitude terrain.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <span>Today</span>
+          <div>
+            <h3>Modern Aviation</h3>
+            <p>
+              The IAF continues air defence, transport, training,
+              disaster relief and aviation modernisation.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- AI QUIZ -->
+    <section class="section quiz-section" id="quiz">
+      <div class="section-heading">
+        <p class="eyebrow">TEST YOUR KNOWLEDGE</p>
+        <h2>IAF AI <span>Quiz Arena</span></h2>
+        <p class="section-intro">
+          Generate aviation questions and test your knowledge.
+        </p>
+      </div>
+
+      <div id="quizRoot">
+        <div class="quiz-card">
+          <p class="muted">Preparing quiz controls…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI BANNER -->
+    <section class="cta-banner section">
+      <div>
+        <p class="eyebrow">YOUR AVIATION COMPANION</p>
+        <h2>Curious about the skies?</h2>
+        <p>
+          Ask the IAF AI assistant about aircraft, aviation science and history.
+        </p>
+      </div>
+
+      <button class="primary-btn" id="bannerAskAI" type="button">
+        Ask the AI Assistant ✦
+      </button>
+    </section>
+
+    <!-- OFFICIAL RESOURCES -->
+    <section class="section resources">
+      <div class="section-heading">
+        <p class="eyebrow">LEARN FROM TRUSTED SOURCES</p>
+        <h2>Official <span>Resources</span></h2>
+      </div>
+
+      <div class="resource-grid">
+        <a href="https://indianairforce.nic.in/"
+          target="_blank" rel="noopener noreferrer">
+          <strong>Indian Air Force ↗</strong>
+          <span>Official IAF website</span>
+        </a>
+
+        <a href="https://mod.gov.in/"
+          target="_blank" rel="noopener noreferrer">
+          <strong>Ministry of Defence ↗</strong>
+          <span>Official defence information</span>
+        </a>
+
+        <a href="https://www.pib.gov.in/"
+          target="_blank" rel="noopener noreferrer">
+          <strong>Press Information Bureau ↗</strong>
+          <span>Government announcements</span>
+        </a>
+      </div>
+    </section>
+    
+
+<section id="contact" class="contact-box-section">
+  <div class="contact-box">
+    <div class="contact-box-info">
+      <span class="contact-tag">LET'S CONNECT</span>
+      <h2>Connect with <span>Sumit Kumar</span></h2>
+      <p>Have a question or an idea? Let's connect!</p>
+    </div>
+
+    <div class="contact-box-links">
+      <a href="mailto:sumit8736814454@gmail.com">✉ Email</a>
+
+      <a href="https://www.instagram.com/sumit__0310/"
+         target="_blank" rel="noopener noreferrer">◎ Instagram</a>
+
+      <a href="https://www.linkedin.com/in/sumit-kumar-228555212/"
+         target="_blank" rel="noopener noreferrer">LinkedIn</a>
+
+      <a href="https://github.com/SumitM0703/"
+         target="_blank" rel="noopener noreferrer">⌘ GitHub</a>
+    </div>
+  </div>
+</section>
+
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <a class="logo" href="#home">IAF <span>UNIVERSE</span></a>
+    <p>Explore aviation. Discover technology. Honour service.</p>
+    <p>
+      Independent educational project — not an official Indian Air Force website.
+    </p>
+    <a href="#home">Back to top ↑</a>
+  </footer>
+
+  <!-- DETAILS DIALOG -->
+  <dialog id="detailsDialog" class="details-dialog">
+    <button type="button" id="dialogClose"
+      class="dialog-close" aria-label="Close details">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <!-- FLOATING AI CHATBOT -->
+  <button id="chatLauncher" class="chat-launcher" type="button"
+    aria-label="Open IAF AI assistant"
+    aria-expanded="false" aria-controls="chatPanel">
+    ✦ <span>Ask IAF AI</span>
+  </button>
+
+  <section id="chatPanel" class="chat-panel" hidden
+    aria-label="IAF AI assistant">
+
+    <header class="chat-header">
+      <div>
+        <span class="status-dot"></span>
+        <div>
+          <strong>IAF AI Assistant</strong>
+          <small>Aircraft · Missions · Aviation</small>
+        </div>
+      </div>
+
+      <div class="chat-header-actions">
+        <button id="chatNew" type="button" title="New chat">↻</button>
+        <button id="chatClose" type="button"
+          aria-label="Close chat">×</button>
+      </div>
+    </header>
+
+    <div id="chatSuggestions" class="chat-suggestions">
+      <button type="button"
+        data-question="Explain how a jet engine works in simple words.">
+        How does a jet engine work?
+      </button>
+
+      <button type="button"
+        data-question="Tell me about the Dassault Rafale operated by India.">
+        Rafale overview
+      </button>
+
+      <button type="button"
+        data-question="Explain Operation Safed Sagar.">
+        Operation Safed Sagar
+      </button>
+    </div>
+
+    <div id="chatMessages" class="chat-messages" aria-live="polite">
+      <div class="chat-message assistant-message">
+        Hello! Ask me about IAF aircraft, aviation science, history or air warriors.
+      </div>
+    </div>
+
+    <form id="chatForm" class="chat-form">
+      <textarea id="chatInput" rows="1"
+        placeholder="Ask anything about aviation…"
+        aria-label="Message to IAF AI" required></textarea>
+
+      <button id="chatSend" type="submit"
+        aria-label="Send message">↑</button>
+    </form>
+
+    <p class="chat-disclaimer">
+      AI can make mistakes. Verify important facts with official sources.
+    </p>
+  </section>
+
+  <!-- MAIN WEBSITE SCRIPT -->
+  <script type="module" src="/src/main.js"></script>
+
+  <!-- MOBILE NAVIGATION -->
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("mainNav");
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("active");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("active");
+          menuToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    const detailsDialog = document.getElementById("detailsDialog");
+    const dialogClose = document.getElementById("dialogClose");
+
+    if (detailsDialog && dialogClose) {
+      dialogClose.addEventListener("click", () => detailsDialog.close());
+
+      detailsDialog.addEventListener("click", event => {
+        if (event.target === detailsDialog) detailsDialog.close();
+      });
+    }
+  </script>
+</body>
+</html>
