@@ -1,7 +1,7 @@
 import "./aircraft3d.js";
 
-const API_URL = "http://127.0.0.1:8000/api/chat";
-const QUIZ_API = "http://127.0.0.1:8000/api/quiz";
+const API_URL =  "https://iaf-aircraft-universe.onrender.com/api/chat";
+const QUIZ_API = "https://iaf-aircraft-universe.onrender.com/api/quiz";
 
 // ================= AIRCRAFT DATA =================
 
