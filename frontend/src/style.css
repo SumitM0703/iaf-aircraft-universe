@@ -1393,7 +1393,7 @@ textarea:focus {
   animation: iafRotate 12s linear infinite;
 }
 
-@keyframes iafRotate {
+frames iafRotate {
   from { transform: rotateY(0deg); }
   to { transform: rotateY(360deg); }
 }
@@ -1684,5 +1684,502 @@ textarea:focus {
   .contact-box-section .contact-box-links a {
     padding: 10px 12px;
     font-size: 12px;
+  }
+}
+
+/* Aircraft Comparison Dashboard */
+.aircraft-comparison {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.aircraft-comparison .section-heading {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.aircraft-comparison .section-heading h2 {
+  margin: 8px 0 12px;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: #f4fbff;
+}
+
+.aircraft-comparison .section-heading > p:last-child {
+  color: #a8c1d1;
+  line-height: 1.7;
+}
+
+.comparison-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: end;
+  gap: 20px;
+  max-width: 950px;
+  margin: 0 auto 32px;
+  padding: 24px;
+  border: 1px solid rgba(83, 224, 239, 0.22);
+  border-radius: 20px;
+  background: rgba(11, 31, 47, 0.8);
+}
+
+.comparison-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #d8edf5;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.comparison-controls select {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  color: #effcff;
+  background: #102a3d;
+  border: 1px solid rgba(83, 224, 239, 0.35);
+  border-radius: 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.comparison-controls select:focus {
+  outline: 2px solid #53e0ef;
+  outline-offset: 2px;
+}
+
+.comparison-controls option {
+  color: #effcff;
+  background: #102a3d;
+}
+
+.comparison-vs {
+  padding-bottom: 12px;
+  color: #53e0ef;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.comparison-results {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.comparison-card {
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid rgba(83, 224, 239, 0.2);
+  border-radius: 20px;
+  background: linear-gradient(
+    145deg,
+    rgba(19, 49, 69, 0.95),
+    rgba(7, 20, 33, 0.96)
+  );
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+}
+
+.comparison-card .eyebrow {
+  color: #53e0ef;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.comparison-card h3 {
+  margin: 12px 0 24px;
+  color: #f4fbff;
+  font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+  line-height: 1.35;
+}
+
+.comparison-spec {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 15px 0;
+  border-top: 1px solid rgba(174, 211, 228, 0.12);
+}
+
+.comparison-spec span {
+  color: #a8c1d1;
+  font-size: 0.9rem;
+}
+
+.comparison-spec strong {
+  max-width: 60%;
+  color: #effcff;
+  text-align: right;
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+}
+
+.comparison-note {
+  margin: 22px 0 0;
+  color: #91aab9;
+  font-size: 0.83rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+  .aircraft-comparison {
+    padding-top: 52px;
+    padding-bottom: 52px;
+  }
+
+  .comparison-controls {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: 18px;
+  }
+
+  .comparison-vs {
+    padding: 0;
+    text-align: center;
+  }
+
+  .comparison-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .comparison-card {
+    padding: 22px;
+  }
+}
+
+/* 3D aircraft comparison previews */
+.comparison-3d-viewer {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  border: 1px solid rgba(83, 224, 239, 0.2);
+  border-radius: 14px;
+  background: radial-gradient(ellipse at center, #17374b 0%, #071522 78%);
+}
+
+.comparison-3d-viewer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.comparison-3d-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: #a8c1d1;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.comparison-3d-viewer canvas {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 650px) {
+  .comparison-3d-viewer {
+    height: 220px;
+  }
+}
+
+/* Animated aircraft comparison images */
+.comparison-3d-viewer {
+  position: relative;
+  height: 260px;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(83, 224, 239, 0.2);
+  border-radius: 14px;
+  background: radial-gradient(ellipse at center, #17374b, #071522 78%);
+}
+
+.comparison-aircraft-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 18px;
+  object-fit: contain;
+  animation: aircraftFloat 4s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes aircraftFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+  50% {
+    transform: translateY(-9px) rotate(2deg) scale(1.025);
+  }
+}
+
+@media (max-width: 650px) {
+  .comparison-3d-viewer {
+    height: 220px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comparison-aircraft-image {
+    animation: none;
+  }
+}
+
+/* Premium aircraft comparison visuals */
+.comparison-3d-viewer {
+  position: relative;
+  height: 260px;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(83, 224, 239, 0.16);
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse at 50% 65%, rgba(34, 115, 145, 0.22), transparent 65%),
+    linear-gradient(145deg, #102a3a, #071522);
+}
+
+.comparison-aircraft-image {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  object-fit: contain;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: aircraftHover 5s ease-in-out infinite;
+  transition: filter 0.3s ease;
+  filter: drop-shadow(0 12px 15px rgba(0, 0, 0, 0.25));
+}
+
+.comparison-aircraft-image:hover {
+  filter: drop-shadow(0 14px 22px rgba(65, 220, 240, 0.2));
+}
+
+@keyframes aircraftHover {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.01);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comparison-aircraft-image {
+    animation: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .comparison-3d-viewer {
+    height: 220px;@key
+  }
+}
+
+/* ===== FINAL AIRCRAFT COMPARISON OVERRIDE ===== */
+
+#aircraftComparisonResults .comparison-3d-viewer {
+  width: 100%;
+  height: 280px;
+  min-height: 280px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 16px;
+  position: relative;
+  border-radius: 14px;
+  background: radial-gradient(ellipse at center, #17374b, #071522 78%);
+  border: 1px solid rgba(83, 224, 239, 0.2);
+}
+
+#aircraftComparisonResults .comparison-3d-viewer img.comparison-aircraft-image {
+  display: block;
+  width: 100%;
+  height: 230px;
+  max-width: 100%;
+  max-height: 230px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  object-fit: contain;
+  object-position: center;
+  flex: 0 0 auto;
+  opacity: 1;
+  animation: comparisonAircraftMotion 5s ease-in-out infinite;
+  transform-origin: center;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.3));
+  will-change: transform;
+}
+
+@keyframes comparisonAircraftMotion {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+}
+
+@media (max-width: 650px) {
+  #aircraftComparisonResults .comparison-3d-viewer {
+    height: 230px;
+    min-height: 230px;
+  }
+
+  #aircraftComparisonResults .comparison-3d-viewer img.comparison-aircraft-image {
+    height: 190px;
+    max-height: 190px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #aircraftComparisonResults .comparison-3d-viewer img.comparison-aircraft-image {
+    animation: none;
+  }
+}
+
+/* ===== IAF AIRCRAFT COMPARISON: FIXED FRAME + ROTATION ===== */
+
+#aircraftComparisonResults .comparison-3d-viewer {
+  width: 100%;
+  height: 280px;
+  min-height: 280px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  position: relative;
+  padding: 20px;
+
+  border-radius: 14px;
+  background: radial-gradient(
+    ellipse at center,
+    #17374b 0%,
+    #071522 78%
+  );
+
+  border: 1px solid rgba(83, 224, 239, 0.2);
+}
+
+/* Same frame dimensions for every aircraft */
+#aircraftComparisonResults .comparison-3d-viewer
+img.comparison-aircraft-image {
+  display: block;
+
+  width: 100%;
+  height: 220px;
+
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 220px;
+
+  object-fit: contain;
+  object-position: center;
+
+  margin: 0;
+  padding: 0;
+  flex: 0 0 auto;
+
+  transform-origin: center center;
+  animation: iafAircraftRotate 8s linear infinite;
+
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.35));
+  will-change: transform;
+}
+
+/* Continuous rotation like a rotating emblem */
+
+/* Right-to-left 3D horizontal rotation */
+
+#aircraftComparisonResults .comparison-3d-viewer {
+  perspective: 1000px;
+}
+
+#aircraftComparisonResults .comparison-3d-viewer
+img.comparison-aircraft-image {
+  animation: iafAircraftFlip 5s linear infinite;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+}
+
+@keyframes iafAircraftFlip {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Aircraft Comparison - Fixed Images, No Rotation */
+
+#aircraftComparisonResults .comparison-3d-viewer {
+  width: 100%;
+  height: 260px;
+  min-height: 260px;
+  padding: 16px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  background: radial-gradient(
+    ellipse at center,
+    #07364a,
+    #061522 75%
+  );
+
+  border: 1px solid #00c8ee;
+  border-radius: 14px;
+  box-shadow: 0 0 14px rgba(0, 200, 238, 0.12);
+}
+
+#aircraftComparisonResults .comparison-3d-viewer
+img.comparison-aircraft-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+
+  display: block;
+  object-fit: contain;
+  object-position: center;
+
+  animation: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+@media (max-width: 650px) {
+  #aircraftComparisonResults .comparison-3d-viewer {
+    height: 230px;
+    min-height: 230px;
   }
 }

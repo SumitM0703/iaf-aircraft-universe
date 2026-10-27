@@ -253,6 +253,81 @@
         of each supplied GLB model.
       </p>
     </section>
+    
+<section class="section aircraft-comparison" id="aircraftComparison">
+  <div class="section-heading">
+    <p class="eyebrow">AIRCRAFT INTELLIGENCE</p>
+    <h2>Compare Aircraft</h2>
+    <p>Compare specifications of aircraft in the IAF Aircraft Universe.</p>
+  </div>
+
+  <div class="comparison-controls">
+    <label>
+      First Aircraft
+      <select id="compareAircraft1">
+        <option value="rafale">Dassault Rafale</option>
+        <option value="tejas">HAL Tejas</option>
+        <option value="su30">Sukhoi Su-30MKI</option>
+        <option value="apache">AH-64 Apache</option>
+        <option value="c17">C-17 Globemaster III</option>
+        <option value="chinook">CH-47 Chinook</option>
+        <option value="jaguar">SEPECAT Jaguar</option>
+        <option value="mi17">Mi-17 V5</option>
+        <option value="mig21">MiG-21 Bison</option>
+        <option value="mig29">MiG-29</option>
+        <option value="mirage2000">Dassault Mirage 2000</option>
+      </select>
+    </label>
+
+    <span class="comparison-vs">VS</span>
+
+    <label>
+      Second Aircraft
+      <select id="compareAircraft2">
+        <option value="su30">Sukhoi Su-30MKI</option>
+        <option value="rafale">Dassault Rafale</option>
+        <option value="tejas">HAL Tejas</option>
+        <option value="apache">AH-64 Apache</option>
+        <option value="c17">C-17 Globemaster III</option>
+        <option value="chinook">CH-47 Chinook</option>
+        <option value="jaguar">SEPECAT Jaguar</option>
+        <option value="mi17">Mi-17 V5</option>
+        <option value="mig21">MiG-21 Bison</option>
+        <option value="mig29">MiG-29</option>
+        <option value="mirage2000">Dassault Mirage 2000</option>
+      </select>
+    </label>
+  </div>
+
+  
+<div id="aircraftComparisonResults" class="comparison-results">
+  <div class="comparison-grid">
+    <article class="comparison-card">
+      <p class="eyebrow">AIRCRAFT 01</p>
+      <h3 id="compareTitle1">Dassault Rafale</h3>
+      <div class="comparison-3d-viewer" id="compareViewer1">
+        <p class="comparison-3d-loading">Preparing 3D preview...</p>
+      </div>
+      <div id="compareSpecs1"></div>
+    </article>
+
+    <article class="comparison-card">
+      <p class="eyebrow">AIRCRAFT 02</p>
+      <h3 id="compareTitle2">Sukhoi Su-30MKI</h3>
+      <div class="comparison-3d-viewer" id="compareViewer2">
+        <p class="comparison-3d-loading">Preparing 3D preview...</p>
+      </div>
+      <div id="compareSpecs2"></div>
+    </article>
+  </div>
+
+  <p class="comparison-note">
+    Specifications are approximate and may vary by variant and mission.
+  </p>
+</div>
+
+</section>
+
 
     <!-- MISSIONS -->
     <section class="section" id="missions">

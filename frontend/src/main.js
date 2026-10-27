@@ -1220,3 +1220,275 @@ document.addEventListener("keydown", event => {
 renderAircraft();
 renderMissions();
 renderPeople();
+
+const comparisonAircraft = {
+  rafale: {
+    name: "Dassault Rafale",
+    type: "Multirole Fighter",
+    speed: "Mach 1.8",
+    engines: "2",
+    ceiling: "50,000 ft",
+    range: "Approx. 3,700 km (ferry range)"
+  },
+  tejas: {
+    name: "HAL Tejas",
+    type: "Light Combat Aircraft",
+    speed: "Mach 1.6",
+    engines: "1",
+    ceiling: "50,000 ft",
+    range: "Approx. 1,850 km (ferry range)"
+  },
+  su30: {
+    name: "Sukhoi Su-30MKI",
+    type: "Multirole Fighter",
+    speed: "Approx. Mach 2",
+    engines: "2",
+    ceiling: "Approx. 56,800 ft",
+    range: "Approx. 3,000 km (ferry range)"
+  },
+  apache: {
+    name: "AH-64 Apache",
+    type: "Attack Helicopter",
+    speed: "Approx. 293 km/h",
+    engines: "2",
+    ceiling: "Approx. 20,000 ft",
+    range: "Approx. 480 km"
+  },
+  c17: {
+    name: "C-17 Globemaster III",
+    type: "Heavy Transport Aircraft",
+    speed: "Approx. 830 km/h",
+    engines: "4",
+    ceiling: "45,000 ft",
+    range: "Approx. 4,500 km with payload"
+  },
+  chinook: {
+    name: "CH-47 Chinook",
+    type: "Heavy-Lift Helicopter",
+    speed: "Approx. 302 km/h",
+    engines: "2",
+    ceiling: "Approx. 20,000 ft",
+    range: "Approx. 740 km"
+  },
+  jaguar: {
+    name: "SEPECAT Jaguar",
+    type: "Strike Aircraft",
+    speed: "Approx. Mach 1.6",
+    engines: "2",
+    ceiling: "Approx. 45,000 ft",
+    range: "Mission-dependent"
+  },
+  mi17: {
+    name: "Mi-17 V5",
+    type: "Transport Helicopter",
+    speed: "Approx. 250 km/h",
+    engines: "2",
+    ceiling: "Approx. 19,700 ft",
+    range: "Approx. 580 km"
+  },
+  mig21: {
+    name: "MiG-21 Bison",
+    type: "Interceptor / Fighter",
+    speed: "Approx. Mach 2",
+    engines: "1",
+    ceiling: "Approx. 57,400 ft",
+    range: "Mission-dependent"
+  },
+  mig29: {
+    name: "MiG-29",
+    type: "Multirole Fighter",
+    speed: "Approx. Mach 2.25",
+    engines: "2",
+    ceiling: "Approx. 59,000 ft",
+    range: "Variant and mission-dependent"
+  },
+  mirage2000: {
+    name: "Dassault Mirage 2000",
+    type: "Multirole Fighter",
+    speed: "Approx. Mach 2.2",
+    engines: "1",
+    ceiling: "Approx. 55,000 ft",
+    range: "Variant and mission-dependent"
+  }
+};
+
+
+function renderAircraftComparison() {
+  const firstSelect = document.getElementById("compareAircraft1");
+  const secondSelect = document.getElementById("compareAircraft2");
+  const results = document.getElementById("aircraftComparisonResults");
+
+  if (!firstSelect || !secondSelect || !results) return;
+
+  const first = comparisonAircraft[firstSelect.value];
+  const second = comparisonAircraft[secondSelect.value];
+
+  if (!first || !second) return;
+
+  const specs = [
+    ["Aircraft Type", "type"],
+    ["Maximum Speed", "speed"],
+    ["Engines", "engines"],
+    ["Service Ceiling", "ceiling"],
+    ["Range", "range"]
+  ];
+
+  function cardHTML(item, number, viewerId, titleId) {
+    return `
+      <article class="comparison-card">
+        <p class="eyebrow">AIRCRAFT ${number}</p>
+        <h3 id="${titleId}">${item.name}</h3>
+
+        <div class="comparison-3d-viewer" id="${viewerId}"></div>
+
+        ${specs.map(([label, key]) => `
+          <div class="comparison-spec">
+            <span>${label}</span>
+            <strong>${item[key]}</strong>
+          </div>
+        `).join("")}
+      </article>
+    `;
+  }
+
+  results.innerHTML = `
+    <div class="comparison-grid">
+      ${cardHTML(first, "01", "compareViewer1", "compareTitle1")}
+      ${cardHTML(second, "02", "compareViewer2", "compareTitle2")}
+    </div>
+
+    <p class="comparison-note">
+      Specifications are approximate and can vary by aircraft variant,
+      configuration and mission. Range figures are not always directly comparable.
+      Verify values against official manufacturer or IAF sources.
+    </p>
+  `;
+
+  // Refresh both image previews after the cards have been rendered.
+  if (window.updateAircraftComparisonImages) {
+    window.updateAircraftComparisonImages();
+  }
+}
+
+
+document.getElementById("compareAircraft1")
+  ?.addEventListener("change", renderAircraftComparison);
+
+document.getElementById("compareAircraft2")
+  ?.addEventListener("change", renderAircraftComparison);
+
+renderAircraftComparison();
+
+/* 3D Aircraft Comparison Preview */
+
+/* Animated Aircraft Image Comparison */
+(() => {
+  
+
+/* Aircraft Comparison Images ONLY */
+const images = {
+  rafale: {
+    name: "Dassault Rafale",
+    image: "/images/rafale.png"
+  },
+  tejas: {
+    name: "HAL Tejas",
+    image: "/images/tejas.png"
+  },
+  su30: {
+    name: "Sukhoi Su-30MKI",
+    image: "/images/sukhoi_su30mki.png"
+  },
+  apache: {
+    name: "AH-64 Apache",
+    image: "/images/apache.png"
+  },
+  c17: {
+    name: "C-17 Globemaster III",
+    image: "/images/c17_globemaster.png"
+  },
+  chinook: {
+    name: "CH-47 Chinook",
+    image: "/images/chinook.png"
+  },
+  jaguar: {
+    name: "SEPECAT Jaguar",
+    image: "/images/jaguar.png"
+  },
+  mi17: {
+    name: "Mi-17 V5",
+    image: "/images/mi17.png"
+  },
+  mig29: {
+    name: "MiG-29",
+    image: "/images/mig29.png"
+  },
+  mirage2000: {
+    name: "Dassault Mirage 2000",
+    image: "/images/stealth_fighter.png"
+  },
+
+  // Additional aircraft from your screenshot
+  awacs: {
+    name: "AWACS Aircraft",
+    image: "/images/awacs.png"
+  },
+  lightAttack: {
+    name: "Light Attack Helicopter",
+    image: "/images/light_attack_helicopter.png"
+  },
+  maritimePatrol: {
+    name: "Maritime Patrol Aircraft",
+    image: "/images/maritime_patrol.png"
+  },
+  navyTrainer: {
+    name: "Navy Trainer",
+    image: "/images/navy_trainer.png"
+  },
+  reconUav: {
+    name: "Reconnaissance UAV",
+    image: "/images/recon_uav.png"
+  },
+  trainerJet: {
+    name: "Trainer Jet",
+    image: "/images/trainer_jet.png"
+  },
+  mig21: {
+  name: "MiG-21 Bison",
+  image: "/images/mig21i.png"
+ }
+};
+
+
+  function setup(selectId, viewerId, titleId) {
+    const select = document.getElementById(selectId);
+    const viewer = document.getElementById(viewerId);
+    const title = document.getElementById(titleId);
+
+    if (!select || !viewer) return;
+
+    const img = document.createElement("img");
+    img.className = "comparison-aircraft-image";
+    img.alt = "Aircraft preview";
+    viewer.replaceChildren(img);
+
+    function update() {
+      const item = images[select.value];
+      if (!item) return;
+
+      img.src = item.image;
+      img.alt = item.name;
+      if (title) title.textContent = item.name;
+    }
+
+    select.addEventListener("change", update);
+    update();
+  }
+
+  window.updateAircraftComparisonImages = function () {
+  setup("compareAircraft1", "compareViewer1", "compareTitle1");
+  setup("compareAircraft2", "compareViewer2", "compareTitle2");
+};
+
+window.updateAircraftComparisonImages();
+})();
