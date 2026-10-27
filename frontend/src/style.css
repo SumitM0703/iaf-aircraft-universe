@@ -2183,3 +2183,690 @@ img.comparison-aircraft-image {
     min-height: 230px;
   }
 }
+
+/* IAF Historical Mission Timeline */
+.mission-timeline {
+  position: relative;
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 20px 0;
+}
+
+.mission-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #38bdf8,
+    #818cf8,
+    #38bdf8,
+    transparent
+  );
+  box-shadow: 0 0 14px #38bdf866;
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 18px 42px;
+  box-sizing: border-box;
+}
+
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-item.right {
+  left: 50%;
+  text-align: left;
+}
+
+.timeline-marker {
+  position: absolute;
+  top: 34px;
+  width: 66px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #38bdf8;
+  border-radius: 20px;
+  background: #101827;
+  color: #7dd3fc;
+  font-size: 11px;
+  font-weight: 800;
+  box-shadow: 0 0 14px #38bdf855;
+  z-index: 2;
+}
+
+.timeline-item.left .timeline-marker {
+  right: -33px;
+}
+
+.timeline-item.right .timeline-marker {
+  left: -33px;
+}
+
+.timeline-card {
+  overflow: hidden;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.timeline-card:hover {
+  transform: translateY(-5px);
+  border-color: #38bdf8;
+}
+
+.timeline-photo img {
+  display: block;
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.timeline-content {
+  padding: 22px;
+}
+
+.timeline-label {
+  color: #7dd3fc;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.timeline-content h3 {
+  margin: 10px 0;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.timeline-content p {
+  font-size: 14px;
+  line-height: 1.7;
+  opacity: 0.82;
+}
+
+.timeline-more {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border: 1px solid #38bdf8;
+  border-radius: 8px;
+  background: transparent;
+  color: #7dd3fc;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.timeline-more:hover {
+  background: #38bdf8;
+  color: #08111f;
+}
+
+@media (max-width: 700px) {
+  .mission-timeline {
+    margin: 30px auto;
+  }
+
+  .mission-timeline::before {
+    left: 18px;
+  }
+
+  .timeline-item,
+  .timeline-item.left,
+  .timeline-item.right {
+    width: 100%;
+    left: 0;
+    padding: 16px 0 16px 52px;
+    text-align: left;
+  }
+
+  .timeline-item.left .timeline-marker,
+  .timeline-item.right .timeline-marker {
+    left: -1px;
+    right: auto;
+    width: 38px;
+    height: 38px;
+    font-size: 9px;
+  }
+
+  .timeline-photo img {
+    height: 160px;
+  }
+
+  .timeline-content {
+    padding: 17px;
+  }
+}
+
+/* ===== IAF TIMELINE: LAYOUT FIX ===== */
+
+#missionTimeline {
+  display: block !important;
+  position: relative;
+  width: min(1100px, 94%) !important;
+  max-width: 1100px;
+  margin: 55px auto !important;
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+#missionTimeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #42e8f5 10%,
+    #6385ff 50%,
+    #42e8f5 90%,
+    transparent
+  );
+  box-shadow: 0 0 18px #42e8f544;
+}
+
+#missionTimeline .timeline-item {
+  display: block;
+  position: relative;
+  width: 50% !important;
+  max-width: none;
+  min-width: 0;
+  margin: 0;
+  padding: 22px 45px;
+  box-sizing: border-box;
+}
+
+#missionTimeline .timeline-item.left {
+  left: 0;
+  text-align: left;
+}
+
+#missionTimeline .timeline-item.right {
+  left: 50%;
+  text-align: left;
+}
+
+#missionTimeline .timeline-card {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(66, 232, 245, 0.25);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #11283b, #0b1525);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+#missionTimeline .timeline-card:hover {
+  transform: translateY(-4px);
+  border-color: #42e8f5;
+}
+
+#missionTimeline .timeline-content {
+  padding: 24px;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+#missionTimeline .timeline-content h3 {
+  margin: 12px 0;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.35;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+#missionTimeline .timeline-content p {
+  font-size: 15px;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+#missionTimeline .timeline-marker {
+  top: 36px;
+  z-index: 2;
+}
+
+#missionTimeline .timeline-item.left .timeline-marker {
+  right: -33px;
+}
+
+#missionTimeline .timeline-item.right .timeline-marker {
+  left: -33px;
+}
+
+#missionTimeline .timeline-photo img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+@media (max-width: 700px) {
+  #missionTimeline {
+    width: 100% !important;
+    padding-left: 0;
+  }
+
+  #missionTimeline::before {
+    left: 17px;
+  }
+
+  #missionTimeline .timeline-item,
+  #missionTimeline .timeline-item.left,
+  #missionTimeline .timeline-item.right {
+    left: 0;
+    width: 100% !important;
+    padding: 18px 0 18px 48px;
+    text-align: left;
+  }
+
+  #missionTimeline .timeline-item.left .timeline-marker,
+  #missionTimeline .timeline-item.right .timeline-marker {
+    left: -1px;
+    right: auto;
+    width: 36px;
+    height: 36px;
+    font-size: 9px;
+  }
+
+  #missionTimeline .timeline-content {
+    padding: 18px;
+  }
+
+  #missionTimeline .timeline-photo img {
+    height: 170px;
+  }
+}
+
+/* Futuristic Ask IAF AI Button */
+#missionTimeline .mission-ask-ai {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 18px;
+  border: 1px solid rgba(76, 239, 245, 0.7);
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(40, 220, 240, 0.2),
+    rgba(67, 110, 255, 0.2)
+  );
+  color: #70f5ff;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.3px;
+  box-shadow:
+    0 0 12px rgba(48, 224, 245, 0.12),
+    inset 0 0 12px rgba(48, 224, 245, 0.05);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#missionTimeline .mission-ask-ai:hover {
+  transform: translateY(-3px);
+  border-color: #65f7ff;
+  background: linear-gradient(135deg, #38e6ef, #6a8cff);
+  color: #06121f;
+  box-shadow:
+    0 0 12px rgba(56, 230, 239, 0.45),
+    0 0 28px rgba(56, 230, 239, 0.2);
+}
+
+#missionTimeline .mission-ask-ai:active {
+  transform: scale(0.97);
+}
+
+#missionTimeline .mission-ask-ai:focus-visible {
+  outline: 2px solid #8dfaff;
+  outline-offset: 4px;
+}
+
+/* ===== IAF HISTORY EXPERIENCE ===== */
+.history-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.history-section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 550px;
+  height: 550px;
+  top: 150px;
+  left: -280px;
+  border-radius: 50%;
+  background: rgba(48, 223, 238, 0.07);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.history-heading {
+  max-width: 850px;
+  margin: 0 auto 55px;
+  text-align: center;
+}
+
+.history-heading .section-intro {
+  max-width: 680px;
+  margin: 18px auto 0;
+  line-height: 1.8;
+}
+
+.history-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 900px;
+  margin: 0 auto 75px;
+}
+
+.history-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  text-align: center;
+  padding: 24px 15px;
+  border: 1px solid rgba(75, 226, 238, 0.2);
+  border-radius: 18px;
+  background: linear-gradient(
+    145deg,
+    rgba(23, 49, 68, 0.72),
+    rgba(7, 19, 31, 0.8)
+  );
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.history-stat:hover {
+  transform: translateY(-5px);
+  border-color: rgba(75, 226, 238, 0.7);
+}
+
+.history-stat-icon {
+  font-size: 24px;
+  color: #4de5ec;
+}
+
+.history-stat strong {
+  color: #f0f7ff;
+  font-size: 21px;
+}
+
+.history-stat > span:last-child {
+  color: #9bb7ce;
+  font-size: 13px;
+}
+
+.history-timeline {
+  position: relative;
+  width: min(100%, 1000px);
+  margin: 0 auto;
+}
+
+.history-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #34dbe8 8%,
+    rgba(52, 219, 232, 0.28) 90%,
+    transparent
+  );
+}
+
+.history-event {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr);
+  align-items: start;
+  gap: 22px;
+  margin-bottom: 45px;
+}
+
+.history-year {
+  grid-column: 1;
+  grid-row: 1;
+  padding-top: 20px;
+  text-align: right;
+  color: #4de5ec;
+  font-size: clamp(20px, 3vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.history-marker {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  color: #07131f;
+  background: #4de5ec;
+  border: 5px solid #0b1a28;
+  border-radius: 50%;
+  box-shadow: 0 0 22px rgba(77, 229, 236, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.history-event:hover .history-marker {
+  transform: scale(1.13);
+  box-shadow: 0 0 30px rgba(77, 229, 236, 0.5);
+}
+
+.history-card {
+  grid-column: 3;
+  grid-row: 1;
+  min-width: 0;
+  padding: 25px;
+  border: 1px solid rgba(122, 181, 213, 0.2);
+  border-radius: 18px;
+  background: linear-gradient(
+    145deg,
+    rgba(18, 39, 55, 0.92),
+    rgba(7, 19, 31, 0.96)
+  );
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.history-event:hover .history-card {
+  transform: translateY(-3px);
+  border-color: rgba(77, 229, 236, 0.48);
+}
+
+.history-tag {
+  display: inline-block;
+  margin-bottom: 13px;
+  color: #4de5ec;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.history-card h3 {
+  margin: 0 0 12px;
+  color: #f0f7ff;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.35;
+}
+
+.history-card p {
+  margin: 0;
+  color: #a8bfd4;
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.history-card details {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(122, 181, 213, 0.15);
+}
+
+.history-card summary {
+  color: #4de5ec;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style-position: inside;
+}
+
+.history-card details p {
+  padding-top: 12px;
+}
+
+.history-finale {
+  position: relative;
+  max-width: 760px;
+  margin: 80px auto 0;
+  padding: 42px 28px;
+  text-align: center;
+  border: 1px solid rgba(77, 229, 236, 0.3);
+  border-radius: 24px;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(36, 132, 155, 0.18),
+    rgba(7, 19, 31, 0.75) 70%
+  );
+}
+
+.history-finale-icon {
+  display: block;
+  margin-bottom: 15px;
+  color: #4de5ec;
+  font-size: 28px;
+}
+
+.history-finale h3 {
+  margin: 14px 0;
+  color: #4de5ec;
+  font-size: clamp(26px, 4vw, 38px);
+}
+
+.history-finale > p:not(.eyebrow) {
+  color: #eaf4ff;
+}
+
+.history-finale-line {
+  display: block;
+  width: 70px;
+  height: 2px;
+  margin: 22px auto;
+  background: #4de5ec;
+}
+
+.history-finale .history-finale-note {
+  max-width: 510px;
+  margin: 0 auto;
+  color: #a8bfd4 !important;
+  line-height: 1.8;
+}
+
+.history-source-note {
+  max-width: 800px;
+  margin: 28px auto 0;
+  color: #7894ab;
+  font-size: 11px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+@media (max-width: 650px) {
+  .history-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .history-stat {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    justify-items: start;
+    text-align: left;
+    padding: 17px;
+  }
+
+  .history-stat-icon {
+    grid-row: span 2;
+    align-self: center;
+  }
+
+  .history-stat strong {
+    font-size: 18px;
+  }
+
+  .history-timeline::before {
+    left: 17px;
+  }
+
+  .history-event {
+    grid-template-columns: 35px minmax(0, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .history-year {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 0 0 10px;
+    text-align: left;
+    font-size: 23px;
+  }
+
+  .history-marker {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+  }
+
+  .history-card {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 20px;
+  }
+
+  .history-finale {
+    margin-top: 50px;
+    padding: 32px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .history-stat,
+  .history-marker,
+  .history-card {
+    transition: none;
+  }
+}

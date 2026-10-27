@@ -11,6 +11,12 @@ const aircraft = [
     status: "In service", role: "Multirole combat aircraft",
     manufacturer: "Dassault Aviation", origin: "France",
     engine: "2 × Safran M88 turbofans", crew: "1 or 2",
+    speed: "Approx. Mach 1.8",
+    ceiling: "Approx. 50,000 ft",
+    range: "Approx. 3,700 km (ferry range)",
+    avionics: "RBE2 AESA radar; integrated electronic warfare suite",
+    refuelling: "Air-to-air refuelling capable",
+    strength: "Multirole capability and advanced sensor integration",
     image: "/images/rafale.jpg",
     description: "A twin-engine multirole fighter designed for air defence, interception and precision strike missions.",
     facts: ["Uses a delta wing and close-coupled canards.", "Designed for multiple mission types.", "India operates single-seat and two-seat variants."],
@@ -26,6 +32,12 @@ const aircraft = [
     status: "In service", role: "Air superiority / multirole",
     manufacturer: "Sukhoi / HAL", origin: "Russia / India",
     engine: "2 × AL-31FP series turbofans", crew: "2",
+    speed: "Approx. Mach 2",
+ceiling: "Approx. 56,800 ft",
+range: "Approx. 3,000 km (ferry range)",
+avionics: "Radar and avionics vary by aircraft upgrade and configuration",
+refuelling: "Air-to-air refuelling capable",
+strength: "Long endurance, twin-engine design and high manoeuvrability",
     image: "/images/su30mki.jpg",
     description: "A long-range, twin-engine fighter developed for India's requirements.",
     facts: ["Has thrust-vectoring capability.", "Has two crew positions.", "HAL participates in its licensed production in India."],
@@ -51,21 +63,32 @@ const aircraft = [
       "Cockpit": "Modern displays provide flight and mission information."
     }
   },
-  {
-    id: "mirage2000", name: "Dassault Mirage 2000", category: "Fighter",
-    status: "In service; fleet status can change", role: "Multirole fighter",
-    manufacturer: "Dassault Aviation", origin: "France",
-    engine: "Single SNECMA M53 series turbofan", crew: "1 or 2",
-    image: "/images/mirage2000.jpg",
-    description: "A single-engine delta-wing fighter used by India for air defence and strike missions.",
-    facts: ["Has a delta-wing layout.", "Played a prominent role in the 1999 Kargil conflict.", "Available in single-seat and trainer configurations."],
-    systems: {
-      "Delta wing": "Supports the aircraft's aerodynamic performance.",
-      "Engine": "A single turbofan produces thrust.",
-      "Cockpit": "Presents flight and mission information.",
-      "Landing gear": "Supports ground operations and landing."
-    }
-  },
+  
+{
+  id: "mirage2000",
+  name: "Dassault Mirage 2000",
+  category: "Fighter",
+  status: "In service",
+  role: "Multirole fighter",
+  manufacturer: "Dassault Aviation",
+  origin: "France",
+  engine: "Single SNECMA M53-P2 turbofan",
+  crew: "1 or 2",
+  image: "/images/mirage2000.jpg",
+  description: "A delta-wing fighter operated by the Indian Air Force for air defence and precision strike missions.",
+  facts: [
+    "Features a delta-wing design.",
+    "Capable of supersonic flight.",
+    "Indian aircraft have received avionics and weapons upgrades."
+  ],
+  systems: {
+    "Delta wing": "Provides the aircraft with its distinctive aerodynamic configuration.",
+    "Flight controls": "Digital flight-control systems assist aircraft handling.",
+    "Radar": "Supports target detection and interception.",
+    "Cockpit": "Displays flight, navigation and mission information."
+  }
+},
+
   {
     id: "mig29", name: "MiG-29UPG", category: "Fighter",
     status: "In service; fleet status can change", role: "Air defence / multirole fighter",
@@ -313,6 +336,34 @@ const aircraft = [
 
 const missions = [
   {
+  name: "Establishment of the Indian Air Force",
+  year: "1932",
+  description: "The Indian Air Force was officially established on 8 October 1932.",
+  detail: "The IAF began its journey as a small force under British rule and later developed into a modern air force.",
+  aircraft: "Early biplanes"
+},
+{
+  name: "First Operational Flight",
+  year: "1933",
+  description: "The IAF's first operational flight took place on 1 April 1933.",
+  detail: "The first squadron began operations with Westland Wapiti biplanes and trained Indian personnel.",
+  aircraft: "Westland Wapiti"
+},
+{
+  name: "North Waziristan Operations",
+  year: "1936–1937",
+  description: "The IAF supported ground forces during operations in the North Waziristan region.",
+  detail: "These early operations helped develop the force's operational experience.",
+  aircraft: "Westland Wapiti"
+},
+{
+  name: "World War II",
+  year: "1939–1945",
+  description: "The IAF expanded its operational role during the Second World War.",
+  detail: "Indian airmen and squadrons supported Allied operations in the Burma theatre.",
+  aircraft: "Various wartime aircraft"
+},
+  {
     name: "Operation Safed Sagar", year: "1999",
     description: "IAF air operations during the Kargil conflict supported Indian forces in difficult high-altitude terrain.",
     detail: "The campaign involved carefully planned air operations in demanding mountain conditions.",
@@ -453,7 +504,7 @@ const aircraftGrid = $("#aircraftGrid");
 const aircraftSearch = $("#aircraftSearch");
 const aircraftFilters = $("#aircraftFilters");
 const aircraftCount = $("#aircraftCount");
-const missionGrid = $("#missionGrid");
+const missionTimeline = $("#missionTimeline");
 const peopleGrid = $("#peopleGrid");
 const peopleSearch = $("#peopleSearch");
 const dialog = $("#detailsDialog");
@@ -506,6 +557,12 @@ function renderAircraft() {
   `).join("");
 }
 const missionImages = {
+  
+"Establishment of the Indian Air Force": "/images/iaf-1932.jpg",
+"First Operational Flight": "/images/iaf-first-flight-1933.jpg",
+"North Waziristan Operations": "/images/iaf-north-waziristan-1936.jpg",
+"World War II": "/images/iaf-ww2-burma.jpg",
+
   "Operation Safed Sagar": "/images/operation-safed-sagar.jpg",
   "Operation Meghdoot": "/images/operation-meghdoot.jpg",
   "Operation Rahat": "/images/operation-rahat-uttarakhand.jpg",
@@ -513,29 +570,98 @@ const missionImages = {
   "Operation Vijay": "/images/operation-vijay-kargil.jpg",
   "Humanitarian Airlift": "/images/humanitarian-airlift.jpg"
 };
+
+
 function renderMissions() {
-  missionGrid.innerHTML = missions.map((mission, index) => `
-    <article class="mission-card">
-    <div class="mission-photo">
-  <img
-    src="${missionImages[mission.name] || ''}"
-    alt="${escapeHTML(mission.name)}"
-    loading="lazy"
-    onerror="this.parentElement.style.display='none'"
-  >
-</div>
-      <div class="mission-number">${String(index + 1).padStart(2, "0")}</div>
-      <div class="card-content">
-        <p class="eyebrow">${escapeHTML(mission.year)}</p>
-        <h3>${escapeHTML(mission.name)}</h3>
-        <p>${escapeHTML(mission.description)}</p>
-        <button class="text-btn" data-mission="${index}">
-          Read mission overview ↗
-        </button>
+  missionTimeline.innerHTML = missions.map((mission, index) => `
+    <article class="timeline-item ${index % 2 === 0 ? "left" : "right"}">
+      <div class="timeline-marker">
+        <span>${escapeHTML(mission.year || "IAF")}</span>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline-photo">
+          <img
+            src="${missionImages[mission.name] || ""}"
+            alt="${escapeHTML(mission.name)}"
+            loading="lazy"
+            onerror="this.parentElement.style.display='none'"
+          >
+        </div>
+
+        <div class="timeline-content">
+          <span class="timeline-label">INDIAN AIR FORCE HISTORY</span>
+
+          <h3>${escapeHTML(mission.name)}</h3>
+
+          <p class="mission-description">
+            ${escapeHTML(mission.description || "")}
+          </p>
+
+          <div class="mission-extra">
+            <p>${escapeHTML(mission.detail || "Explore this important chapter in Indian Air Force history.")}</p>
+            ${mission.aircraft ? `
+              <div class="mission-aircraft">
+                <strong>Aircraft / Equipment:</strong>
+                ${escapeHTML(mission.aircraft)}
+              </div>
+            ` : ""}
+          </div>
+
+          <div class="mission-actions">
+            <button class="timeline-more" type="button"
+              data-mission-index="${index}">
+              Read full history →
+            </button>
+
+            <button class="mission-ask-ai" type="button"
+              data-ask-mission="${index}">
+              ✦ Ask IAF AI
+            </button>
+          </div>
+        </div>
       </div>
     </article>
   `).join("");
+
+  missionTimeline.querySelectorAll(".timeline-more").forEach(button => {
+    button.addEventListener("click", () => {
+      const mission = missions[Number(button.dataset.missionIndex)];
+      if (!mission) return;
+
+      dialogContent.innerHTML = `
+        <h2>${escapeHTML(mission.name)}</h2>
+        <p><strong>Year:</strong> ${escapeHTML(mission.year || "Historical milestone")}</p>
+        <p>${escapeHTML(mission.description || "")}</p>
+        <p>${escapeHTML(mission.detail || "")}</p>
+        ${mission.aircraft ? `
+          <p><strong>Aircraft / Equipment:</strong>
+          ${escapeHTML(mission.aircraft)}</p>
+        ` : ""}
+      `;
+
+      dialog.showModal();
+    });
+  });
+
+  missionTimeline.querySelectorAll(".mission-ask-ai").forEach(button => {
+    button.addEventListener("click", () => {
+      const mission = missions[Number(button.dataset.askMission)];
+      if (!mission) return;
+
+      const chatbotButton = [...document.querySelectorAll("button")]
+        .find(el => el.textContent.includes("Ask IAF AI"));
+
+      if (chatbotButton && chatbotButton !== button) {
+        chatbotButton.click();
+      } else {
+        alert("Please open the main Ask IAF AI chatbot to learn more about this mission.");
+      }
+    });
+  });
 }
+
+
 const warriorImages = {
   "Marshal of the IAF Arjan Singh":
     "/images/arjan-singh.jpg",
@@ -726,7 +852,7 @@ aircraftGrid.addEventListener("click", event => {
   if (button) openAircraft(button.dataset.aircraft);
 });
 
-missionGrid.addEventListener("click", event => {
+missionTimeline.addEventListener("click", event => {
   const button = event.target.closest("[data-mission]");
   if (button) openMission(Number(button.dataset.mission));
 });
@@ -1247,29 +1373,53 @@ const comparisonAircraft = {
     range: "Approx. 3,000 km (ferry range)"
   },
   apache: {
-    name: "AH-64 Apache",
-    type: "Attack Helicopter",
-    speed: "Approx. 293 km/h",
-    engines: "2",
-    ceiling: "Approx. 20,000 ft",
-    range: "Approx. 480 km"
-  },
+  name: "AH-64E Apache",
+  type: "Attack Helicopter",
+  manufacturer: "Boeing",
+  origin: "United States",
+  role: "Ground attack and close air support",
+  status: "In service",
+  speed: "Approx. 293 km/h",
+  engines: "2 × turboshaft engines",
+  crew: "2",
+  ceiling: "Approx. 20,000 ft",
+  range: "Approx. 476 km (mission-dependent)",
+  avionics: "Target acquisition and designation systems; radar fit varies by variant",
+  refuelling: "Not generally listed as an in-flight refuelling capability",
+  strength: "Armoured design, advanced targeting and anti-armour capability"
+},
   c17: {
-    name: "C-17 Globemaster III",
-    type: "Heavy Transport Aircraft",
-    speed: "Approx. 830 km/h",
-    engines: "4",
-    ceiling: "45,000 ft",
-    range: "Approx. 4,500 km with payload"
-  },
+  name: "C-17 Globemaster III",
+  type: "Heavy Strategic Transport Aircraft",
+  manufacturer: "Boeing",
+  origin: "United States",
+  role: "Strategic airlift and heavy cargo transport",
+  status: "In service",
+  speed: "Approx. 830 km/h",
+  engines: "4 × Pratt & Whitney F117 turbofan engines",
+  crew: "3",
+  ceiling: "Approx. 45,000 ft",
+  range: "Approx. 4,480 km with a substantial payload; configuration-dependent",
+  avionics: "Integrated flight management, navigation and cargo systems",
+  refuelling: "Air-to-air refuelling capable",
+  strength: "Heavy cargo capacity and operation from relatively short runways"
+},
   chinook: {
-    name: "CH-47 Chinook",
-    type: "Heavy-Lift Helicopter",
-    speed: "Approx. 302 km/h",
-    engines: "2",
-    ceiling: "Approx. 20,000 ft",
-    range: "Approx. 740 km"
-  },
+  name: "CH-47F(I) Chinook",
+  type: "Heavy-Lift Transport Helicopter",
+  manufacturer: "Boeing",
+  origin: "United States",
+  role: "Heavy cargo transport and troop movement",
+  status: "In service",
+  speed: "Approx. 302 km/h",
+  engines: "2 × Honeywell T55 turboshaft engines",
+  crew: "3",
+  ceiling: "Approx. 20,000 ft",
+  range: "Approx. 740 km (mission-dependent)",
+  avionics: "Digital cockpit and advanced navigation systems",
+  refuelling: "Not generally listed as an in-flight refuelling capability",
+  strength: "Heavy payload capacity and tandem-rotor stability"
+},
   jaguar: {
     name: "SEPECAT Jaguar",
     type: "Strike Aircraft",
@@ -1279,13 +1429,21 @@ const comparisonAircraft = {
     range: "Mission-dependent"
   },
   mi17: {
-    name: "Mi-17 V5",
-    type: "Transport Helicopter",
-    speed: "Approx. 250 km/h",
-    engines: "2",
-    ceiling: "Approx. 19,700 ft",
-    range: "Approx. 580 km"
-  },
+  name: "Mi-17V-5",
+  type: "Medium-Lift Transport Helicopter",
+  manufacturer: "Kazan Helicopters / Russian Helicopters",
+  origin: "Russia",
+  role: "Troop transport, logistics and rescue",
+  status: "In service",
+  speed: "Approx. 250 km/h",
+  engines: "2 × Klimov TV3-117VM-series turboshaft engines",
+  crew: "Typically 3",
+  ceiling: "Approx. 19,700 ft",
+  range: "Approx. 580 km (mission-dependent)",
+  avionics: "Navigation and communication systems vary by configuration",
+  refuelling: "Not generally listed as an in-flight refuelling capability",
+  strength: "Versatile transport, high-altitude operations and utility missions"
+},
   mig21: {
     name: "MiG-21 Bison",
     type: "Interceptor / Fighter",
@@ -1309,8 +1467,79 @@ const comparisonAircraft = {
     engines: "1",
     ceiling: "Approx. 55,000 ft",
     range: "Variant and mission-dependent"
-  }
+  },
+  hawk: {
+  name: "Hawk Mk132",
+  type: "Advanced Jet Trainer",
+  manufacturer: "BAE Systems / HAL",
+  origin: "United Kingdom / India",
+  role: "Advanced pilot training and weapons training",
+  status: "In service",
+  speed: "Approx. Mach 0.84",
+  engines: "1 × Rolls-Royce Adour turbofan",
+  crew: "2",
+  ceiling: "Approx. 44,000 ft",
+  range: "Approx. 2,500 km (configuration-dependent)",
+  avionics: "Training-focused cockpit and navigation systems",
+  refuelling: "Not generally listed as an in-flight refuelling capability",
+  strength: "Jet pilot training and handling characteristics similar to combat aircraft"
+},
 };
+
+
+
+function getComparisonAircraft(id) {
+  const key = String(id).toLowerCase();
+
+  const legacy = comparisonAircraft[key];
+
+  const base = aircraft.find(item =>
+    String(item.id || "").toLowerCase() === key ||
+    String(item.name || "").toLowerCase() === key ||
+    String(item.id || "").toLowerCase() === String(legacy?.id || "").toLowerCase() ||
+    String(item.name || "").toLowerCase() === String(legacy?.name || "").toLowerCase()
+  );
+
+  if (!base && !legacy) {
+    console.warn("Aircraft not found:", id);
+    return null;
+  }
+
+  const item = { ...(legacy || {}), ...(base || {}) };
+
+  return {
+    ...item,
+    type: item.category || item.type || "Not available",
+    manufacturer: item.manufacturer || "Not available",
+    origin: item.origin || "Not available",
+    role: item.role || "Not available",
+    status: item.status || "Not available",
+    speed: item.speed || "Not available",
+    engines: item.engines || item.engine || "Not available",
+    crew: item.crew || "Not available",
+    ceiling: item.ceiling || "Not available",
+    range: item.range || "Not available",
+    avionics:
+  item.avionics ||
+  item.systems?.["Radar"] ||
+  item.systems?.["Radar & Avionics"] ||
+  "Details available in aircraft systems",
+
+refuelling:
+  item.refuelling ||
+  item.systems?.["Air-to-Air Refuelling"] ||
+  "Check aircraft variant specifications",
+
+strength:
+  item.strength ||
+  (Array.isArray(item.facts) ? item.facts.join(" ") : "") ||
+  item.description ||
+  "General operational capabilities vary by variant"
+  };
+}
+
+
+
 
 
 function renderAircraftComparison() {
@@ -1320,31 +1549,42 @@ function renderAircraftComparison() {
 
   if (!firstSelect || !secondSelect || !results) return;
 
-  const first = comparisonAircraft[firstSelect.value];
-  const second = comparisonAircraft[secondSelect.value];
+  const first = getComparisonAircraft(firstSelect.value);
+  const second = getComparisonAircraft(secondSelect.value);
 
-  if (!first || !second) return;
+  if (!first || !second) {
+    results.innerHTML = "<p>Select two valid aircraft to compare.</p>";
+    return;
+  }
 
   const specs = [
     ["Aircraft Type", "type"],
+    ["Manufacturer", "manufacturer"],
+    ["Country of Origin", "origin"],
+    ["Operational Role", "role"],
+    ["Service Status", "status"],
     ["Maximum Speed", "speed"],
-    ["Engines", "engines"],
+    ["Engine Configuration", "engines"],
+    ["Crew", "crew"],
     ["Service Ceiling", "ceiling"],
-    ["Range", "range"]
+    ["Range", "range"],
+    ["Radar & Avionics", "avionics"],
+    ["Air-to-Air Refuelling", "refuelling"],
+    ["Key Strength", "strength"]
   ];
 
   function cardHTML(item, number, viewerId, titleId) {
     return `
       <article class="comparison-card">
         <p class="eyebrow">AIRCRAFT ${number}</p>
-        <h3 id="${titleId}">${item.name}</h3>
+        <h3 id="${titleId}">${escapeHTML(item.name)}</h3>
 
         <div class="comparison-3d-viewer" id="${viewerId}"></div>
 
         ${specs.map(([label, key]) => `
           <div class="comparison-spec">
             <span>${label}</span>
-            <strong>${item[key]}</strong>
+            <strong>${escapeHTML(item[key] || "Not available")}</strong>
           </div>
         `).join("")}
       </article>
@@ -1358,17 +1598,17 @@ function renderAircraftComparison() {
     </div>
 
     <p class="comparison-note">
-      Specifications are approximate and can vary by aircraft variant,
-      configuration and mission. Range figures are not always directly comparable.
-      Verify values against official manufacturer or IAF sources.
+      Specifications are approximate and may vary by aircraft variant,
+      configuration and mission. Range figures are not always directly
+      comparable. Verify values against official sources.
     </p>
   `;
 
-  // Refresh both image previews after the cards have been rendered.
   if (window.updateAircraftComparisonImages) {
     window.updateAircraftComparisonImages();
   }
 }
+
 
 
 document.getElementById("compareAircraft1")
