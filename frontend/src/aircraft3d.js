@@ -91,7 +91,7 @@ if (viewer) {
     },
     chinook: {
       name: "CH-47 Chinook",
-      path: "/models/chinook.glb"
+      path: "/models/chinook-optimized.glb"
     },
     jaguar: {
       name: "SEPECAT Jaguar",
