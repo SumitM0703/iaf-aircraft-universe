@@ -2,8 +2,10 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "meshoptimizer";
 
 const viewer = document.getElementById("aircraft3dViewer");
+const loadingOverlay = viewer?.querySelector(".viewer-loading");
 
 if (viewer) {
   const status = document.getElementById("viewerStatus");
@@ -59,8 +61,9 @@ if (viewer) {
 
   const aircraftRoot = new THREE.Group();
   scene.add(aircraftRoot);
-
+  
   const loader = new GLTFLoader();
+  loader.setMeshoptDecoder(MeshoptDecoder);
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
 
@@ -159,8 +162,16 @@ if (viewer) {
   };
 
   function setStatus(message) {
-    if (status) status.textContent = message;
+  if (!status) return;
+
+  status.textContent = message;
+
+  if (message.includes(" loaded — ")) {
+    status.style.display = "none";
+  } else {
+    status.style.display = "block";
   }
+}
 
   function getInfo(name) {
     const n = name.toLowerCase();
@@ -337,12 +348,20 @@ if (viewer) {
     const token = ++loadToken;
 
     clearModel();
-    setStatus(`Loading ${aircraftName || "aircraft"}...`);
+    setStatus(`Loading ${aircraftName || "aircraft"}... 0%`);
+    if (loadingOverlay) {
+  loadingOverlay.style.display = "block";
+  loadingOverlay.textContent = `Loading ${aircraftName || "aircraft"}... 0%`;
+}
 
     loader.load(
       path,
       (gltf) => {
         if (token !== loadToken) return;
+        if (loadingOverlay) {
+  loadingOverlay.style.display = "none";
+}
+        
 
         try {
           const model = gltf.scene;
@@ -419,7 +438,14 @@ if (viewer) {
 
         if (event.total > 0) {
           const percent = Math.round((event.loaded / event.total) * 100);
-          setStatus(`Loading ${aircraftName || "aircraft"}... ${percent}%`);
+const message = `Loading ${aircraftName || "aircraft"}... ${percent}%`;
+
+setStatus(message);
+
+if (loadingOverlay) {
+  loadingOverlay.textContent = message;
+  loadingOverlay.style.display = "block";
+}
         }
       },
       (error) => {
